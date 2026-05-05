@@ -1,0 +1,165 @@
+:root {
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --text: #1f2430;
+  --subtle: #586070;
+  --brand: #6a4cff;
+  --brand-dark: #5139cb;
+  --line: #eceef4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top, #eef0ff 0%, var(--bg) 38%, #f7f8fc 100%);
+  padding: 18px 14px 28px;
+}
+
+.page {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px 18px;
+  box-shadow: 0 12px 28px rgba(21, 29, 58, 0.07);
+}
+
+.hero {
+  background: linear-gradient(150deg, #121a37 0%, #2e2a72 58%, #5a40db 100%);
+  color: #f4f5ff;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ced2ff;
+}
+
+.title {
+  margin: 12px 0 10px;
+  font-size: 1.65rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #e5e7ff;
+}
+
+.hero-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.btn {
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 11px 10px;
+}
+
+.btn.primary {
+  background: var(--brand);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: var(--brand-dark);
+}
+
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+h2 {
+  margin: 0 0 12px;
+  font-size: 1.02rem;
+}
+
+.korean-script {
+  margin: 0 0 10px;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(1.9rem, 8vw, 2.4rem);
+  line-height: 1.2;
+  color: #3d2d95;
+}
+
+.details,
+.video-caption,
+.contact p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--subtle);
+}
+
+.video-section {
+  padding-top: 18px;
+}
+
+video {
+  width: 100%;
+  border-radius: 14px;
+  background: #191d2b;
+  display: block;
+}
+
+.video-caption {
+  margin-top: 10px;
+}
+
+.features ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 7px;
+}
+
+.features li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.contact {
+  text-align: center;
+}
+
+.contact-title {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2f3166;
+}
+
+.contact p {
+  margin-bottom: 4px;
+}
+
+.btn.full {
+  display: block;
+  margin-top: 14px;
+}
