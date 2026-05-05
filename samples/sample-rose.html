@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <title>샘플 01 로즈 클래식</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Serif+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Noto Serif KR", serif;
+        background:
+          radial-gradient(circle at 12% 10%, rgba(255, 198, 219, 0.3) 0%, rgba(255, 198, 219, 0) 42%),
+          radial-gradient(circle at 85% 18%, rgba(190, 186, 255, 0.34) 0%, rgba(190, 186, 255, 0) 44%),
+          linear-gradient(160deg, #f8f4ff 0%, #f8fafe 48%, #f3f6ff 100%);
+        color: #33292d;
+      }
+      .wrap { max-width: 430px; margin: 0 auto; padding: 20px 14px 40px; }
+      .card {
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.7), rgba(247, 251, 255, 0.45));
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(14px) saturate(120%);
+        -webkit-backdrop-filter: blur(14px) saturate(120%);
+        box-shadow: 0 12px 30px rgba(97, 49, 59, 0.14);
+      }
+      .hero { padding: 30px 22px; text-align: center; background: radial-gradient(circle at top, #f8dfe5 0%, #fff 72%); }
+      .title { font-family: "Great Vibes", cursive; font-size: 3rem; margin: 10px 0; color: #8d5a66; }
+      .sub { margin: 0; font-size: 0.95rem; line-height: 1.6; }
+      .section { padding: 22px; text-align: center; }
+      video { width: 100%; border-radius: 14px; }
+      a { display: inline-block; margin-top: 14px; color: #8d5a66; }
+      .music-btn {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        border: 0;
+        border-radius: 999px;
+        padding: 10px 14px;
+        background: linear-gradient(140deg, rgba(141, 90, 102, 0.94), rgba(113, 74, 145, 0.94));
+        box-shadow: 0 10px 24px rgba(88, 54, 95, 0.25);
+        color: #fff;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <article class="card">
+        <section class="hero">
+          <p>Wedding Invitation</p>
+          <h1 class="title">Rose Classic</h1>
+          <p class="sub">사랑으로 물든 날, 소중한 당신을 초대합니다.</p>
+        </section>
+        <section class="section">
+          <p>2026.10.17 SAT PM 1:00</p>
+          <p>라움 아트센터 그레이스홀</p>
+        </section>
+        <section class="section">
+          <video controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop">
+            <source src="https://cdn.coverr.co/videos/coverr-wedding-cake-1579/1080p.mp4" type="video/mp4" />
+          </video>
+          <a href="../index.html">메인으로 돌아가기</a>
+        </section>
+      </article>
+    </main>
+    <audio id="bgm" loop preload="none">
+      <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3?filename=wedding-piano-ambient-11057.mp3" type="audio/mpeg" />
+      <source src="https://samplelib.com/lib/preview/mp3/sample-12s.mp3" type="audio/mpeg" />
+    </audio>
+    <button id="musicToggle" class="music-btn" type="button">BGM 재생</button>
+    <script>
+      const bgm = document.getElementById("bgm");
+      const toggle = document.getElementById("musicToggle");
+      bgm.volume = 0.35;
+      toggle.addEventListener("click", async () => {
+        if (bgm.paused) {
+          try {
+            await bgm.play();
+            toggle.textContent = "BGM 정지";
+          } catch (_e) {
+            toggle.textContent = "재생 허용 필요";
+          }
+        } else {
+          bgm.pause();
+          toggle.textContent = "BGM 재생";
+        }
+      });
+    </script>
+  </body>
+</html>

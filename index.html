@@ -3,14 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="영상형/이미지형 모바일 청첩장을 제작하는 블룸웨딩카드. 웨딩 문구 커스텀, 감성 폰트, 영상 삽입, 빠른 제작까지 한 번에 제공합니다." />
+    <meta name="keywords" content="모바일 청첩장, 영상 청첩장, 이미지 청첩장, 웨딩 초대장, 결혼식 청첩장 제작" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="BLOOM WEDDING CARD" />
+    <meta name="theme-color" content="#2e2a72" />
+    <link rel="canonical" href="https://wedding-fore.vercel.app/" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="BLOOM WEDDING CARD" />
+    <meta property="og:title" content="모바일 청첩장 제작 | 블룸웨딩카드" />
+    <meta property="og:description" content="영상형/이미지형 모바일 청첩장을 웨딩 무드에 맞춰 맞춤 제작합니다." />
+    <meta property="og:url" content="https://wedding-fore.vercel.app/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="모바일 청첩장 제작 | 블룸웨딩카드" />
+    <meta name="twitter:description" content="영상형/이미지형 모바일 청첩장 맞춤 제작 서비스" />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop" />
     <title>모바일 청첩장 제작 | 블룸웨딩카드</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pretendard:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nanum+Myeongjo:wght@400;700&family=Pretendard:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "BLOOM WEDDING CARD",
+        "url": "https://wedding-fore.vercel.app/",
+        "image": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop",
+        "email": "omnipoo@naver.com",
+        "description": "영상형/이미지형 모바일 청첩장 맞춤 제작 서비스",
+        "areaServed": "KR",
+        "serviceType": ["영상형 모바일 청첩장", "이미지형 모바일 청첩장"]
+      }
+    </script>
   </head>
   <body>
     <main class="page">
@@ -34,13 +68,23 @@
         <p class="details">신랑, 신부의 이야기와 분위기에 맞춰 문구를 커스텀합니다.</p>
       </section>
 
-      <section id="sample" class="card video-section" aria-label="웨딩 영상 샘플">
-        <h2>영상형 모바일 청첩장 샘플</h2>
-        <video controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop">
-          <source src="https://cdn.coverr.co/videos/coverr-wedding-cake-1579/1080p.mp4" type="video/mp4" />
-          브라우저가 동영상을 지원하지 않습니다.
-        </video>
-        <p class="video-caption">예식 하이라이트, 인터뷰, 프리웨딩 스냅까지 자연스럽게 연결됩니다.</p>
+      <section id="sample" class="card video-section" aria-label="모바일 청첩장 타입 샘플">
+        <h2>청첩장 타입 샘플</h2>
+        <div class="sample-grid">
+          <a class="sample-item" href="./samples/sample-rose.html">
+            <strong>1. 영상형 | Rose Classic</strong>
+            <span>썸네일 + 재생 버튼으로 시작하는 대표 영상형</span>
+          </a>
+          <a class="sample-item" href="./samples/sample-midnight.html">
+            <strong>1. 영상형 | Midnight Mood</strong>
+            <span>시네마틱 다크 톤의 몰입형 영상 안내 스타일</span>
+          </a>
+          <a class="sample-item" href="./samples/sample-minimal.html">
+            <strong>2. 이미지형 | Minimal Breeze</strong>
+            <span>큰 이미지와 문구 중심의 깔끔한 카드형 구성</span>
+          </a>
+        </div>
+        <p class="video-caption">타입은 영상형 / 이미지형으로 제작되며, 선택한 타입 안에서 맞춤 디자인됩니다.</p>
       </section>
 
       <section class="card features">
@@ -55,9 +99,9 @@
 
       <section id="contact" class="card contact">
         <p class="contact-title">상담 및 제작 문의</p>
-        <p>카카오톡: @bloomweddingcard</p>
-        <p>이메일: hello@bloomweddingcard.kr</p>
-        <a href="mailto:hello@bloomweddingcard.kr" class="btn primary full">지금 문의하기</a>
+        <p>연락처: 010-4035-0672</p>
+        <p>이메일: omnipoo@naver.com</p>
+        <a href="mailto:omnipoo@naver.com" class="btn primary full">지금 문의하기</a>
       </section>
     </main>
   </body>

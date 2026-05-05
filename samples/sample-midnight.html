@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <title>샘플 02 미드나잇 무드</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Pretendard", sans-serif;
+        color: #eef3ff;
+        background:
+          radial-gradient(circle at 10% 8%, rgba(123, 147, 255, 0.25) 0%, rgba(123, 147, 255, 0) 40%),
+          radial-gradient(circle at 90% 14%, rgba(191, 171, 255, 0.22) 0%, rgba(191, 171, 255, 0) 42%),
+          #0c122d;
+      }
+      .hero { min-height: 65vh; display: grid; place-content: center; text-align: center; padding: 24px; background:
+      linear-gradient(180deg, rgba(6,10,30,.25), rgba(6,10,30,.82)),
+      url("https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1400&auto=format&fit=crop") center/cover; }
+      h1 { margin: 10px 0; font-size: clamp(2rem, 8vw, 3.2rem); }
+      .section { max-width: 540px; margin: 0 auto; padding: 26px 16px; }
+      .panel {
+        background: linear-gradient(145deg, rgba(23, 35, 76, 0.62), rgba(17, 25, 54, 0.46));
+        border: 1px solid rgba(127, 151, 255, 0.35);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 14px;
+        backdrop-filter: blur(12px) saturate(120%);
+        -webkit-backdrop-filter: blur(12px) saturate(120%);
+      }
+      .btn {
+        display: inline-block;
+        background: linear-gradient(140deg, rgba(92, 124, 255, 0.95), rgba(84, 95, 226, 0.95));
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 14px;
+        border-radius: 10px;
+      }
+      .music-btn {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        border: 0;
+        border-radius: 999px;
+        padding: 10px 14px;
+        background: linear-gradient(140deg, rgba(92, 124, 255, 0.95), rgba(84, 95, 226, 0.95));
+        box-shadow: 0 10px 24px rgba(44, 59, 150, 0.3);
+        color: #fff;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div>
+        <p>VIDEO INVITATION</p>
+        <h1>Midnight Mood</h1>
+        <p>영화 같은 톤으로 제작하는 고급형 모바일 청첩장</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="panel">
+        <p>신랑 박준호 · 신부 한지윤</p>
+        <p>2026년 11월 21일 토요일 오후 2시</p>
+      </div>
+      <div class="panel">
+        <a class="btn" href="../index.html">메인으로 돌아가기</a>
+      </div>
+    </section>
+    <audio id="bgm" loop preload="none">
+      <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3?filename=wedding-piano-ambient-11057.mp3" type="audio/mpeg" />
+      <source src="https://samplelib.com/lib/preview/mp3/sample-12s.mp3" type="audio/mpeg" />
+    </audio>
+    <button id="musicToggle" class="music-btn" type="button">BGM 재생</button>
+    <script>
+      const bgm = document.getElementById("bgm");
+      const toggle = document.getElementById("musicToggle");
+      bgm.volume = 0.35;
+      toggle.addEventListener("click", async () => {
+        if (bgm.paused) {
+          try {
+            await bgm.play();
+            toggle.textContent = "BGM 정지";
+          } catch (_e) {
+            toggle.textContent = "재생 허용 필요";
+          }
+        } else {
+          bgm.pause();
+          toggle.textContent = "BGM 재생";
+        }
+      });
+    </script>
+  </body>
+</html>
