@@ -18,28 +18,32 @@ body {
   font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   color: var(--text);
   background: radial-gradient(circle at top, #eef0ff 0%, var(--bg) 38%, #f7f8fc 100%);
-  padding: 18px 14px 28px;
+  padding: 0;
 }
 
 .page {
   width: 100%;
-  max-width: 480px;
+  max-width: none;
   margin: 0 auto;
   display: grid;
-  gap: 12px;
+  gap: 0;
 }
 
 .card {
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 22px 18px;
-  box-shadow: 0 12px 28px rgba(21, 29, 58, 0.07);
+  border: 0;
+  border-radius: 0;
+  padding: 60px 20px;
+  box-shadow: none;
 }
 
 .hero {
   background: linear-gradient(150deg, #121a37 0%, #2e2a72 58%, #5a40db 100%);
   color: #f4f5ff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .eyebrow {
@@ -66,7 +70,8 @@ body {
 
 .hero-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(140px, 220px));
+  justify-content: center;
   gap: 8px;
   margin-top: 18px;
 }
@@ -118,7 +123,7 @@ h2 {
 }
 
 .video-section {
-  padding-top: 18px;
+  background: #f8f9ff;
 }
 
 video {
@@ -146,6 +151,7 @@ video {
 
 .contact {
   text-align: center;
+  background: #ffffff;
 }
 
 .contact-title {
@@ -162,4 +168,26 @@ video {
 .btn.full {
   display: block;
   margin-top: 14px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 900px) {
+  .card {
+    padding-left: clamp(40px, 8vw, 140px);
+    padding-right: clamp(40px, 8vw, 140px);
+  }
+
+  .title {
+    font-size: clamp(2rem, 4vw, 3.6rem);
+  }
+
+  .subtitle,
+  .details,
+  .video-caption,
+  .features li,
+  .contact p {
+    font-size: 1rem;
+  }
 }
