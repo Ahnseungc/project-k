@@ -1,0 +1,146 @@
+openapi: 3.1.0
+info:
+  title: Gold Sparse Ellipsometry API
+  version: 0.1.0
+  description: |
+    REST API for capture sessions and gold content measurement jobs.
+    See docs/SPEC.md and docs/schemas/*.schema.json.
+servers:
+  - url: http://localhost:8080
+paths:
+  /v1/sessions:
+    post:
+      operationId: createSession
+      summary: Create capture session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [device_id, sample]
+              properties:
+                device_id:
+                  type: string
+                sample:
+                  type: object
+                  required: [id]
+                  properties:
+                    id:
+                      type: string
+                    nominal_karat:
+                      type: number
+      responses:
+        "201":
+          description: Session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  session_id:
+                    type: string
+                    format: uuid
+  /v1/sessions/{sessionId}/views:
+    post:
+      operationId: uploadView
+      summary: Upload one polarimetric view (4 RAW channels)
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [view_index, flash_intensity, I0, I90, I45, I135]
+              properties:
+                view_index:
+                  type: integer
+                flash_intensity:
+                  type: string
+                  enum: [quarter, eighth, sixteenth]
+                I0:
+                  type: string
+                  format: binary
+                I90:
+                  type: string
+                  format: binary
+                I45:
+                  type: string
+                  format: binary
+                I135:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: View stored
+  /v1/sessions/{sessionId}/process:
+    post:
+      operationId: startProcessing
+      summary: Run sparse ellipsometry + gold regression pipeline
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "202":
+          description: Job accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_id:
+                    type: string
+                    format: uuid
+  /v1/jobs/{jobId}:
+    get:
+      operationId: getJobStatus
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Job status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [queued, running, done, failed]
+                  progress_pct:
+                    type: number
+                  error:
+                    type: string
+  /v1/sessions/{sessionId}/result:
+    get:
+      operationId: getResult
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Measurement result
+          content:
+            application/json:
+              schema:
+                $ref: ../schemas/measurement_result.schema.json

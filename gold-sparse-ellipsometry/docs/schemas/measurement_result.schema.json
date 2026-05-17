@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-k.local/gse/schemas/measurement_result.schema.json",
+  "title": "MeasurementResult",
+  "description": "Gold content measurement output from sparse ellipsometry pipeline",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "session_id",
+    "processed_at",
+    "gold_fraction",
+    "karat",
+    "confidence",
+    "pipeline"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "processed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "gold_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Mass fraction of pure gold in alloy"
+    },
+    "karat": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 24
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "low_confidence",
+          "unknown_alloy",
+          "rough_surface",
+          "insufficient_views",
+          "calibration_stale"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "optical_features": {
+      "type": "object",
+      "description": "Intermediate features used for regression",
+      "properties": {
+        "eta_mean": { "type": "number" },
+        "eta_std": { "type": "number" },
+        "dop_mean": { "type": "number" },
+        "diffuse_albedo_rgb": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "reference_method": {
+      "type": "string",
+      "description": "Label source used to train regressor, e.g. XRF",
+      "enum": ["XRF", "fire_assay", "synthetic", "none"]
+    },
+    "pipeline": {
+      "type": "object",
+      "required": ["spec_version", "regressor_version", "view_count"],
+      "additionalProperties": false,
+      "properties": {
+        "spec_version": { "type": "string" },
+        "regressor_version": { "type": "string" },
+        "view_count": { "type": "integer", "minimum": 1 },
+        "optimization_iters": { "type": "integer" }
+      }
+    },
+    "quality_metrics": {
+      "type": "object",
+      "properties": {
+        "reprojection_rmse_px": { "type": "number" },
+        "diffuse_loss_final": { "type": "number" },
+        "refractive_index_loss_final": { "type": "number" }
+      }
+    }
+  }
+}

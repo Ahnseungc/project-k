@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-k.local/gse/schemas/calibration_bundle.schema.json",
+  "title": "CalibrationBundle",
+  "type": "object",
+  "required": ["schema_version", "device_id", "created_at", "geometry", "radiometric", "stokes_matrix"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0.0" },
+    "device_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "valid_until": { "type": "string", "format": "date-time" },
+    "geometry": {
+      "type": "object",
+      "required": ["camera_flash_angle_deg"],
+      "properties": {
+        "camera_flash_angle_deg": {
+          "type": "number",
+          "description": "Near-coaxial angle; paper uses ~3.5"
+        },
+        "baseline_mm": { "type": "number" }
+      }
+    },
+    "radiometric": {
+      "type": "object",
+      "required": ["hdr_response"],
+      "properties": {
+        "hdr_response": {
+          "type": "array",
+          "description": "Debevec-Malik response curve samples",
+          "items": { "type": "number" }
+        },
+        "flash_intensity_scale": {
+          "type": "object",
+          "properties": {
+            "quarter": { "type": "number" },
+            "eighth": { "type": "number" },
+            "sixteenth": { "type": "number" }
+          }
+        }
+      }
+    },
+    "stokes_matrix": {
+      "type": "array",
+      "description": "4x4 matrix mapping Stokes s_o to [I0,I90,I45,I135] per paper Eq. (15)",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" },
+        "minItems": 4,
+        "maxItems": 4
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "gold_reference_offsets": {
+      "type": "object",
+      "description": "Per-device bias correction vs certified samples",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "karat_bias": { "type": "number" },
+          "eta_bias": { "type": "number" }
+        }
+      }
+    }
+  }
+}

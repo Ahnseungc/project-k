@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-k.local/gse/schemas/capture_session.schema.json",
+  "title": "CaptureSession",
+  "description": "Sparse ellipsometry capture session for gold content measurement",
+  "type": "object",
+  "required": ["schema_version", "session_id", "created_at", "device_id", "sample", "views"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "device_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "calibration_id": {
+      "type": "string",
+      "description": "Reference to calibration_bundle"
+    },
+    "sample": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "material_label": { "type": "string" },
+        "nominal_karat": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 24
+        },
+        "surface_roughness_ra_um": {
+          "type": "number",
+          "minimum": 0
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "temperature_c": { "type": "number" },
+        "humidity_pct": { "type": "number" }
+      }
+    },
+    "views": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/view" }
+    }
+  },
+  "$defs": {
+    "view": {
+      "type": "object",
+      "required": ["view_index", "flash_intensity", "channels"],
+      "additionalProperties": false,
+      "properties": {
+        "view_index": { "type": "integer", "minimum": 0 },
+        "flash_intensity": {
+          "type": "string",
+          "enum": ["quarter", "eighth", "sixteenth"]
+        },
+        "channels": {
+          "type": "object",
+          "required": ["I0", "I90", "I45", "I135"],
+          "additionalProperties": false,
+          "properties": {
+            "I0": { "$ref": "#/$defs/raw_asset" },
+            "I90": { "$ref": "#/$defs/raw_asset" },
+            "I45": { "$ref": "#/$defs/raw_asset" },
+            "I135": { "$ref": "#/$defs/raw_asset" }
+          }
+        },
+        "pose": {
+          "type": "object",
+          "description": "Filled after SfM: world-from-camera",
+          "properties": {
+            "R": {
+              "type": "array",
+              "items": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "t": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        }
+      }
+    },
+    "raw_asset": {
+      "type": "object",
+      "required": ["path", "bit_depth"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string" },
+        "bit_depth": { "type": "integer", "enum": [12, 14, 16] },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

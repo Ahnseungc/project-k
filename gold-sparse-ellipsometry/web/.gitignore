@@ -1,8 +1,6 @@
-.vercel
-.DS_Store
 node_modules/
 .next/
 out/
+.vercel/
 *.tsbuildinfo
-.venv/
-__pycache__/
+next-env.d.ts

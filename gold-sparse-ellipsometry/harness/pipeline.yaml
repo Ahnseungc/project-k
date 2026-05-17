@@ -1,0 +1,52 @@
+# Harness CI v1 — build, test, package (gold-sparse-ellipsometry)
+# Deploy with: harness_create resource_type=pipeline_v1 org_id=... project_id=...
+pipeline:
+  name: gold-sparse-ellipsometry-ci
+  identifier: gold_sparse_ellipsometry_ci
+  projectIdentifier: default
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Build and Test
+        identifier: build_test
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: AMD64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install dependencies
+                  identifier: install
+                  spec:
+                    shell: Sh
+                    command: |
+                      cd gold-sparse-ellipsometry
+                      python3 -m pip install --upgrade pip
+                      pip install -e ".[dev]"
+              - step:
+                  type: Run
+                  name: Unit and integration tests
+                  identifier: pytest
+                  spec:
+                    shell: Sh
+                    command: |
+                      cd gold-sparse-ellipsometry
+                      pytest -q
+              - step:
+                  type: Run
+                  name: CLI synthetic demo
+                  identifier: demo
+                  spec:
+                    shell: Sh
+                    command: |
+                      cd gold-sparse-ellipsometry
+                      gse synthetic-demo --karat 18 --out /tmp/gse_demo.json
+                      test -f /tmp/gse_demo.json

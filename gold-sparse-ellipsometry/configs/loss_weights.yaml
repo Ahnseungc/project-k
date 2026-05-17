@@ -1,0 +1,9 @@
+# Paper Eq. (19) default weights
+lambdas:
+  psi: 1
+  diffuse: 100
+  specular: 1
+  normal: 100
+specular_augmentation:
+  M_virtual: 180
+  lambda_g: 0.1

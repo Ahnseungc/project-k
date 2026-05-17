@@ -1,0 +1,31 @@
+# Gold Sparse Ellipsometry — default pipeline (see docs/SPEC.md §8)
+
+geometry:
+  poisson_depth_init: 7
+  poisson_depth_final: 9
+  min_views: 4
+  recommended_views: 24
+
+optimization:
+  max_iters: 20
+  lambdas:
+    psi: 1
+    diffuse: 100
+    specular: 1
+    normal: 100
+  specular_augmentation:
+    M_virtual: 180
+    lambda_g: 0.1
+  eta_init: 1.5
+
+capture:
+  flash_intensity_levels: [0.25, 0.125, 0.0625]
+  camera_flash_angle_deg_nominal: 3.5
+  polarization_angles_deg: [0, 45, 90, 135]
+  light_polarizer_deg: 0
+
+gold_regressor:
+  model: gradient_boosting
+  min_training_samples: 50
+  target: karat
+  confidence_threshold: 0.6
