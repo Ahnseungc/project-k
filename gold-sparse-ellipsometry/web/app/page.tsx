@@ -8,8 +8,8 @@ export default function Home() {
           금 함량을 측정해 보세요
         </h1>
         <p className="mt-3 text-base leading-relaxed text-body">
-          한 장씩 찍으면 다음 단계로 자동 이동합니다. 최소 4방향 × 편광 4채널이면 측정할 수
-          있습니다.
+          서비스 기본은 일반 사진 기반 간편 모드입니다. 정밀 측정이 필요하면 편광 4채널 × 다각도
+          촬영 정밀 모드를 사용하세요.
         </p>
       </section>
 
@@ -21,11 +21,11 @@ export default function Home() {
       >
         <GuideCard
           step="1"
-          title="편광 4장"
-          body="각 위치에서 필터 0°·45°·90°·135°로 플래시 촬영"
+          title="간편 모드"
+          body="일반 사진 1~2장으로 범위형 추정(확정값 아님)"
         />
-        <GuideCard step="2" title="4방향 이상" body="시편 주위를 돌며 같은 과정 반복" />
-        <GuideCard step="3" title="측정" body="업로드 후 η·DoP·K 결과 확인" />
+        <GuideCard step="2" title="정밀 모드" body="4방향 이상, 편광 4채널 촬영으로 회귀 추정" />
+        <GuideCard step="3" title="주의" body="간편 모드는 거래/가격 결정에 사용 불가" />
       </section>
 
       <footer className="mt-16 border-t border-hairline pt-8 text-center text-[13px] text-foggy">

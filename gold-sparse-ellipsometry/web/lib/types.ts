@@ -83,9 +83,43 @@ export interface MeasurementResult {
 }
 
 export interface MeasureRequest {
-  mode: "synthetic" | "upload";
+  mode: "synthetic" | "upload" | "single_image";
   nominal_karat?: number;
   n_views?: number;
   /** Multi-view smartphone capture (min 4 views, 4 pol channels each) */
   views?: UploadViewPayload[];
+  /** One or two standard photos for simple estimate mode */
+  images?: string[];
+}
+
+export type ConfidenceLevel = "low" | "medium" | "high";
+
+export interface SingleImageFeatures {
+  mean_luma: number;
+  mean_saturation: number;
+  highlight_ratio: number;
+  shadow_ratio: number;
+  warm_ratio: number;
+  background_complexity: number;
+  gold_pixel_ratio: number;
+  object_fill_ratio: number;
+}
+
+export type MaterialClass = "gold" | "non_precious" | "plated" | "plastic" | "unknown";
+
+export interface SingleImageEstimate {
+  mode: "single_image";
+  is_gold_like: boolean;
+  material_class: MaterialClass;
+  material_probabilities: Record<MaterialClass, number>;
+  karat_range: "10-14K" | "14-18K" | "18-24K";
+  probabilities: Record<"10-14K" | "14-18K" | "18-24K", number>;
+  confidence: ConfidenceLevel;
+  flags: Array<"non_gold_candidate" | "mixed_material_suspected" | "background_too_complex">;
+  result_usable: boolean;
+  needs_retake: boolean;
+  reasons: string[];
+  guidance: string[];
+  disclaimer: string;
+  features: SingleImageFeatures;
 }

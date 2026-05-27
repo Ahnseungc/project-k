@@ -10,24 +10,39 @@ export function ResultCard({
   inputKarat?: number;
 }) {
   const delta = inputKarat != null ? result.karat - inputKarat : null;
+  const blockedByPolicy =
+    result.flags.includes("non_gold_candidate") || result.flags.includes("mixed_material_suspected");
 
   return (
     <Card className="overflow-hidden p-0">
       <div className="border-b border-hairline bg-surface-soft px-6 py-8 text-center">
-        <p className="text-sm font-medium text-foggy">예측 함량</p>
-        <p className="mt-1 text-[64px] font-bold leading-none tracking-tight text-ink">
-          {result.karat.toFixed(2)}
-          <span className="ml-1 text-2xl font-semibold text-foggy">K</span>
-        </p>
-        <p className="mt-2 text-sm text-body">
-          순금 {(result.gold_fraction * 100).toFixed(1)}% · 신뢰도{" "}
-          {(result.confidence * 100).toFixed(0)}%
-        </p>
-        {delta != null && (
-          <p className="mt-2 text-sm font-medium text-foggy">
-            합성 입력 대비 {delta >= 0 ? "+" : ""}
-            {delta.toFixed(2)}K
-          </p>
+        {blockedByPolicy ? (
+          <>
+            <p className="text-sm font-medium text-foggy">측정 결과</p>
+            <p className="mt-2 text-2xl font-bold text-ink">참고 불가</p>
+            <p className="mt-2 text-sm text-body">
+              비금속 가능성 또는 복합 파츠 영향으로 단일 금속 추정이 어렵습니다.
+            </p>
+            <p className="mt-2 text-xs text-foggy">오프라인 전문 측정을 권장합니다.</p>
+          </>
+        ) : (
+          <>
+            <p className="text-sm font-medium text-foggy">예측 함량</p>
+            <p className="mt-1 text-[64px] font-bold leading-none tracking-tight text-ink">
+              {result.karat.toFixed(2)}
+              <span className="ml-1 text-2xl font-semibold text-foggy">K</span>
+            </p>
+            <p className="mt-2 text-sm text-body">
+              순금 {(result.gold_fraction * 100).toFixed(1)}% · 신뢰도{" "}
+              {(result.confidence * 100).toFixed(0)}%
+            </p>
+            {delta != null && (
+              <p className="mt-2 text-sm font-medium text-foggy">
+                합성 입력 대비 {delta >= 0 ? "+" : ""}
+                {delta.toFixed(2)}K
+              </p>
+            )}
+          </>
         )}
       </div>
 
@@ -40,7 +55,17 @@ export function ResultCard({
       {result.flags.length > 0 && (
         <div className="flex flex-wrap gap-2 border-t border-hairline-soft px-6 pb-4">
           {result.flags.map((f) => (
-            <Badge key={f} tone={f === "low_confidence" ? "warning" : "default"}>
+            <Badge
+              key={f}
+              tone={
+                f === "low_confidence" ||
+                f === "non_gold_candidate" ||
+                f === "mixed_material_suspected" ||
+                f === "background_too_complex"
+                  ? "warning"
+                  : "default"
+              }
+            >
               {f}
             </Badge>
           ))}

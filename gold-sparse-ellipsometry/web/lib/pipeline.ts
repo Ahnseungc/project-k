@@ -10,6 +10,10 @@ function uuid(): string {
   return crypto.randomUUID();
 }
 
+function pushIfAbsent(flags: string[], flag: string): void {
+  if (!flags.includes(flag)) flags.push(flag);
+}
+
 export async function runPipeline(req: MeasureRequest): Promise<MeasurementResult> {
   const stageLog: MeasurementResult["stage_log"] = [];
   const log = (stage: string, status: string, detail = "") => {
@@ -56,7 +60,22 @@ export async function runPipeline(req: MeasureRequest): Promise<MeasurementResul
   const flags: string[] = [];
   if (confidence < 0.6) flags.push("low_confidence");
   if (req.mode === "synthetic") flags.push("synthetic_input");
-  if (req.mode === "upload") flags.push("smartphone_capture");
+  if (req.mode === "upload") {
+    flags.push("smartphone_capture");
+    const { eta_mean, dop_mean, rho_d_R, rho_d_G, rho_d_B } = features;
+    const chromaSpread = Math.max(rho_d_R, rho_d_G, rho_d_B) - Math.min(rho_d_R, rho_d_G, rho_d_B);
+    const diffuseLoss = metrics.diffuse_loss_final ?? 0;
+    const refractiveLoss = metrics.refractive_index_loss_final ?? 0;
+
+    const nonGoldLikeOptics =
+      eta_mean < 1.18 || eta_mean > 2.55 || dop_mean < 0.004 || (rho_d_B > rho_d_R && dop_mean < 0.02);
+    const mixedMaterialSignal = chromaSpread > 0.28 || diffuseLoss > 0.085 || refractiveLoss > 0.015;
+    const backgroundTooComplex = diffuseLoss > 0.12;
+
+    if (nonGoldLikeOptics) pushIfAbsent(flags, "non_gold_candidate");
+    if (mixedMaterialSignal) pushIfAbsent(flags, "mixed_material_suspected");
+    if (backgroundTooComplex) pushIfAbsent(flags, "background_too_complex");
+  }
 
   return {
     schema_version: "1.0.0",
